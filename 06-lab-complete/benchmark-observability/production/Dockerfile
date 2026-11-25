@@ -25,6 +25,9 @@ RUN chown -R agent:agent /app
 
 USER agent
 
+# Fix: user agent có HOME=/app (useradd -d /app) nên Python tìm user site ở /app/.local
+#      → không thấy package. Chỉ rõ PYTHONUSERBASE để trỏ về nơi đã copy package.
+ENV PYTHONUSERBASE=/home/agent/.local
 ENV PATH=/home/agent/.local/bin:$PATH
 ENV PYTHONPATH=/app
 ENV PYTHONDONTWRITEBYTECODE=1
